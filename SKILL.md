@@ -5,9 +5,9 @@ license: MIT
 compatibility: Works with any Agent Skills runtime (Claude Code, OpenCode, Codex, Cursor and similar). Needs project docs for product facts and web access to verify dated, sourced competitor numbers.
 metadata:
   author: Federica Mariani
-  version: "1.0.0"
+  version: "1.1.0"
   homepage: https://github.com/marianif/high-converting-aeo-seo-content-writer
-  keywords: "content writing skill, SEO content writer, AEO content, GEO content, answer engine optimization, blog post writing, long-form article, comparison page, alternatives page, X vs Y, best-of page, landing page copy, product-led content, growth marketing, answer-first writing, conversion copywriting, AI citations, internal linking, FAQ schema, content brief, editorial voice"
+  keywords: "content writing skill, SEO content writer, AEO content, GEO content, answer engine optimization, blog post writing, long-form article, comparison page, alternatives page, X vs Y, best-of page, landing page copy, product-led content, growth marketing, answer-first writing, conversion copywriting, AI citations, internal linking, FAQ schema, content brief, editorial voice, E-E-A-T, EEAT, author schema, structured data, JSON-LD, core web vitals, YMYL"
 ---
 
 # High-Converting AEO & SEO Content Writer
@@ -74,6 +74,10 @@ Answer engines **retrieve, parse, and quote passages** — they reward retrievab
 
 Before relying on FAQ or other rich results, **check how the project's renderer actually extracts them** — the mechanism is often narrower than it looks. A visually styled "FAQ" block frequently emits **no schema** if the extractor only reads, say, H2 headings ending in a question mark, or a dedicated MDX/component prop. Read the extractor, then write the markup it consumes; do not assume a heading level or wrapper works because it renders. Emit schema only for Q&A that is genuinely on the page.
 
+Emit only what the page actually is. A comparison is an `Article` with a `BreadcrumbList`, not a `Product`. When several types apply, combine them in one `@graph` under a single `@context` instead of scattering separate script tags.
+
+**Author and reviewer signals.** Search and answer systems check who wrote a piece and whether someone qualified checked it. Where the pipeline supports it, the page carries a `Person` for the author with `sameAs` links to canonical profiles, the reviewer, and honest dates. All of that is already in the frontmatter, so it belongs in the pipeline rather than hand-written alongside it.
+
 ## Pick the format (intent families)
 
 One cell = one article = one `target_keyword`. Never two articles on the same query.
@@ -133,6 +137,10 @@ target_keyword: "<the single primary intent>"
 secondary_keywords:
   - "<supporting term>"
 tags: [<product>, <theme>, SEO]
+author: "<real name, with credentials when the project has them>"
+reviewed_by: "<who checked the facts; required for health, finance, legal or safety pieces>"
+sources:                  # the sources this piece rests on, each one actually read
+  - "<url> — <the claim it supports>, accessed <date>"
 status: draft        # draft | review | published
 state: prototype     # concept | prototype | in-development | shipped
 ---
@@ -140,6 +148,8 @@ state: prototype     # concept | prototype | in-development | shipped
 
 - `slug` and `target_keyword` are unique across the whole corpus.
 - `description` is a sentence a human would click, not a keyword list.
+- `author` and `reviewed_by` are the page's trust signals. A signed comparison is worth more than an anonymous one, and a health, finance, legal or safety piece needs a real reviewer or an explicit note that nobody reviewed it.
+- `sources` lists only what you actually used for a claim. A source listed but unread is worse than one omitted.
 - Keyword appears naturally in the title/H1 and the opening; no stuffing.
 - Never duplicate a frontmatter key (last value wins, silently).
 - Add real `published`/`updated` dates so the page emits a modified date.
@@ -152,6 +162,12 @@ Discover what the site's content pipeline actually supports before drafting, and
 - Internal links must resolve to pages that are actually built; a link to an unpublished page becomes a dead link or a broken build.
 - Keep lists flat unless the renderer proves it handles nesting.
 - Do not hand-write structured data if the pipeline generates it from frontmatter — you will fork the truth.
+
+## Page performance
+
+Search systems measure the page, not only the text. Current Core Web Vitals thresholds: largest contentful paint under 2.5 seconds, interaction to next paint under 200 milliseconds, cumulative layout shift under 0.1.
+
+Most content-side causes sit with the writer or the template rather than with engineering. Oversized hero images, autoplaying embeds, images and tables without reserved dimensions, and heavy interactive components dropped into prose are the usual ones. Give every image intrinsic dimensions, keep comparison tables narrow enough to read on a phone without horizontal scroll, and link to a live comparison instead of emulating one.
 
 ## Ship and verify
 
@@ -172,7 +188,7 @@ Discover what the site's content pipeline actually supports before drafting, and
 - [ ] Question-shaped H2s, each with an answer-first block.
 - [ ] Schema/FAQ markup matches what the renderer actually extracts.
 - [ ] One CTA; internal links up to the hub and 2–4 siblings; sources listed were actually read.
-- [ ] Correct disclaimer where the category warrants one.
+- [ ] Correct disclaimer where the category warrants one. Health, finance, legal and safety topics are YMYL: they need a named reviewer, or a plain statement that none reviewed the piece.
 
 ## Guardrails
 
@@ -182,6 +198,7 @@ Discover what the site's content pipeline actually supports before drafting, and
 - Do not restyle or reorder a design reference that the project treats as source of truth; change the design first.
 - Do not publish a comparison before the product has a comparable shipping state to compare from.
 - Do not edit build output by hand and call it done.
+- Do not publish a health, finance, legal or safety comparison without review by someone qualified, and do not imply review that did not happen.
 
 ## Related skills
 

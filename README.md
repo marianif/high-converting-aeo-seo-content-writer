@@ -16,6 +16,8 @@ It is deliberately **not** a neutral journalist and **not** a note-taker. Every 
 | Brief | Keyword, angle, audience, the reader's decision, what the piece must prove |
 | Write | Answer-first sections, question-shaped H2s, honest comparison tables, one CTA |
 | Verify | Every competitor number dated and sourced; no unshipped feature in the present tense |
+| Trust signals | Named author, reviewer and sources; YMYL pieces get a qualified reviewer |
+| Performance | Core Web Vitals basics: image weight, reserved dimensions, narrow tables |
 | Ship | Written to the authoritative content location, not a regenerated build output |
 
 It is **product-agnostic**: it learns the project first and never carries facts, names or paths over from another product. If the project keeps a notes vault, style guide or editorial system, that wins over any default in the skill.
@@ -89,6 +91,10 @@ It pairs naturally with the [OpenSEO](https://github.com/every-app/open-seo) res
 If you arrived here searching for any of these, this is the skill:
 
 `content writing skill` · `seo content writer` · `aeo content writer` · `geo content` · `answer engine optimization` · `generative engine optimization` · `ai citations` · `answer-first writing` · `blog post writer` · `long-form article skill` · `comparison page writer` · `alternatives page` · `vs page` · `best-of page` · `landing page copy` · `product-led content` · `growth marketing` · `conversion copywriting` · `claude code skill` · `claude skills` · `opencode skill` · `codex skill` · `cursor skill` · `agent skills`
+
+## Credits
+
+The technical and trust-signal checklists (structured data, author and reviewer schema, Core Web Vitals, YMYL) were reviewed against [sanity-io/agent-toolkit](https://github.com/sanity-io/agent-toolkit)'s `seo-aeo-best-practices` (MIT) for completeness, then rewritten here in this skill's own voice and kept stack-agnostic.
 
 ## License
 
